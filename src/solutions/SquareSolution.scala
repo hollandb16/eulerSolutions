@@ -10,8 +10,23 @@ import java.util.stream._
 
 object Solution {
 
+  case class Square(in: Seq[Int]){
+    val r1 = Seq(in(0), in(1), in(2))
+    val r2 = Seq(in(3), in(4), in(5))
+    val r3 = Seq(in(6), in(7), in(8))
+    val c1 = Seq(in(0), in(3), in(6))
+    val c2 = Seq(in(1), in(4), in(7))
+    val c3 = Seq(in(2), in(5), in(8))
+    val d1 = Seq(in(0), in(4), in(8))
+    val d2 = Seq(in(2), in(4), in(6))
+
+    lazy val isMagic: Boolean = Seq(r1, r2, r3, c1, c2, c3, d1, d2).map(_.sum).distinct.size == 1
+
+  }
+
   def costToGetToSquare(start: Square, targetSquare: Square): Int = {
-    start.in
+    start
+      .in
       .zip(targetSquare.in)
       .map { case (startDigit, targetDigit) => (startDigit - targetDigit).abs }
       .sum
@@ -68,18 +83,4 @@ object Solution {
 
     printWriter.close()
   }
-}
-
-case class Square(in: Seq[Int]){
-  val r1 = Seq(in(0), in(1), in(2))
-  val r2 = Seq(in(3), in(4), in(5))
-  val r3 = Seq(in(6), in(7), in(8))
-  val c1 = Seq(in(0), in(3), in(6))
-  val c2 = Seq(in(1), in(4), in(7))
-  val c3 = Seq(in(2), in(5), in(8))
-  val d1 = Seq(in(0), in(4), in(8))
-  val d2 = Seq(in(2), in(4), in(6))
-
-  lazy val isMagic: Boolean = Seq(r1, r2, r3, c1, c2, c3, d1, d2).map(_.sum).distinct.size == 1
-
 }
